@@ -11,10 +11,10 @@ object Main extends PoemGenerator with App {
 
 trait PoemGenerator extends RegexParsers {
 
-  val grammarFile: String = "/home/bill/Documents/Code/Scala Code/PoemGenerator/src/main/scala/com/sift/poem/Grammar Rules.txt"
+  val grammarFile: String = "Grammar Rules.txt"
 
   //Mapped grammar rules line by line of form "KEY: VALUE"
-  val grammarRules: Map[String, String] = LoanPattern.using(io.Source.fromFile(grammarFile)) { source => {
+  val grammarRules: Map[String, String] = LoanPattern.using(io.Source.fromResource(grammarFile)) { source => {
     (for {
       line <- source.getLines
       Array(key, value) = line.split(":")
@@ -31,9 +31,10 @@ trait PoemGenerator extends RegexParsers {
   val separator: String = "|"
 
   //Parser combinators
-  val term: Regex = "\\w+".r
+  //A term can be anything except characters reserved for parsing
+  val term: Regex = new Regex("[^:$<>\\n" + separator +"]+")
 
-  def definition: Parser[Any] = term ~ ":" ~> rule <~ "\n"
+  def definition: Parser[Any] = term ~ ":" ~> rule <~ rep1("\n")
 
   def rule: Parser[Any] = rep1(multiChoice | keyword | reference) ^^ (x => x.mkString(" "))
 
@@ -60,9 +61,10 @@ trait PoemGenerator extends RegexParsers {
   }
 
 
-  def generatePoem(startSymbol: String) : String =
+  def generatePoem(startSymbol: String) : String = {
     //split on ": " removes parser success code for cleaner output
-    parseAll(rule,grammarRules(startSymbol)).toString.split(": ")(1)
+    parseAll(rule, grammarRules(startSymbol)).toString.split(": ")(1)
+  }
 
 }
 

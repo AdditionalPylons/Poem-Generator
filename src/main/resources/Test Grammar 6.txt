@@ -1,0 +1,7 @@
+POEM: <HV1nYe8h4B> <HV1nYe8h4B> <HV1nYe8h4B> <HV1nYe8h4B> <HV1nYe8h4B>
+HV1nYe8h4B: <CR!TK*YEoaZn>|<7JI#nvY1&sau>|<4RKwhkEkLJ> $LINEBREAK
+g%@MFMS&Q3zvl: black|white|dark|light|bright|murky|muddy|clear <CR!TK*YEoaZn>|<g%@MFMS&Q3zvl>|$END
+CR!TK*YEoaZn: heart|sun|moon|thunder|fire|time|wind|sea|river|flavor|wave|willow|rain|tree|flower|field|meadow|pasture|harvest|water|father|mother|brother|sister <CViRdsxxnb>|<7JI#nvY1&sau>|$END
+4RKwhkEkLJ: my|your|his|her <CR!TK*YEoaZn>|<g%@MFMS&Q3zvl>
+CViRdsxxnb: runs|walks|stands|climbs|crawls|flows|flies|transcends|ascends|descends|sinks <7JI#nvY1&sau>|<4RKwhkEkLJ>|$END
+7JI#nvY1&sau: above|across|against|along|among|around|before|behind|beneath|beside|between|beyond|during|inside|onto|outside|under|underneath|upon|with|without|through <CR!TK*YEoaZn>|<4RKwhkEkLJ>|<g%@MFMS&Q3zvl>
