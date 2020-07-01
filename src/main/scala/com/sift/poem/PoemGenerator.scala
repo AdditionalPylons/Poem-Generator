@@ -1,5 +1,6 @@
 package com.sift.poem
 
+import scala.language.reflectiveCalls
 import scala.util.matching.Regex
 import scala.util.Random
 import scala.util.parsing.combinator._
@@ -14,13 +15,14 @@ trait PoemGenerator {
   object GrammarImporter {
 
     //Files in relative path main/resources, default file is "Grammar Rules.txt",
-    //test files are of form "Test Grammar x.txt" where x = an Int
+    //test files are of form "Test Grammar x.txt" where x = an Int. Test Grammar 2 requires
+    //setting PoemParser.separator = ","
     private val grammarFile: String = "Grammar Rules.txt"
 
     //validLine is arg to matches method in grammarRules. Must be a String, not a Regex
     private val validLine: String = ".+:.+"
 
-    //Mapped grammar rules line by line of form "KEY: VALUE" after filtering source for valid lines
+    //Grammar rules mapped line by line of form "KEY: VALUE" after filtering source for valid lines
     val grammarRules: Map[String, String] = LoanPattern.using(io.Source.fromResource(grammarFile)) { source => {
       (for {
         line <- source.getLines.filter(_.matches(validLine))
@@ -43,8 +45,8 @@ trait PoemGenerator {
     //Character used to separate options when one should be chosen randomly
     private val separator: String = "|"
 
-    //A term can be anything except characters reserved for parsing
-    private val term: Regex = new Regex("[^:$<>" + separator +"]+")
+    //A term can be anything except characters reserved for parsing or a space
+    private val term: Regex = new Regex("[^:$<> " + separator +"]+")
 
     //Parser combinators tokenize grammar instead of changing grammar in place
     def rule: Parser[Any] = rep1(multiChoice | keyword | reference) ^^ (x => x.mkString(" "))
